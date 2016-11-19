@@ -27,6 +27,9 @@ int main()
     int max_students = 0;
     double all_last_update = 0;
 
+    map <s_id, double> start_time;
+    map <s_id, double> total_time;
+
     while (cin >> cur_time){
         string buf;
         // :
@@ -37,6 +40,7 @@ int main()
         // Start or task
         cin >> buf;
         if (buf == "Start"){
+            start_time[cur_id] = cur_time;
             cin >> buf;
             cin >> buf;
             //we do it in "wait"!
@@ -73,6 +77,10 @@ int main()
                 all_students += (cur_time - all_last_update) * all_students_cur;
                 --all_students_cur;
                 all_last_update = cur_time;
+
+                if (buf == "cash"){
+                    total_time[cur_id] = cur_time + stime - start_time[cur_id];
+                }
             } else if (status == "complete"){
                 //do nothing, we do it in "service" case
             } else {
@@ -98,5 +106,13 @@ int main()
     cout << "    max_students: " << max_students << endl;
     cout << "    aver_students: " << all_students / cur_time << endl;
 
+    double time = 0;
+    double max_time = 0;
+    for (auto i : total_time){
+        time += i.second;
+        max_time = max(max_time, i.second);
+    }
+    cout << "    aver_time: " << time / start_time.size() << endl;
+    cout << "    max_time: " << max_time << endl;
     return 0;
 }

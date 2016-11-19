@@ -7,7 +7,7 @@ def load_str_array(file):
     return res
 
 if __name__ == '__main__':
-    COUNT = 1
+    COUNT = 20
     pythonmodels = ['task_0.py', 'task_a1.py', 'task_a2.py', 'task_a3.py',
                     'task_b1.py', 'task_b2.py', 'task_b3.py', 'task_c.py',
                     'task_res.py']
@@ -33,7 +33,26 @@ if __name__ == '__main__':
                         stat[model][prefix + ' ' + node[0]] += float(node[1])
                     else:
                         stat[model][prefix + ' ' + node[0]] = float(node[1])
+    stats = ['max_students', 'aver_students', 'aver_time_for_queue', 
+             'aver_time_total_in_stage', 'student_that_wait_max', 'total_students_use']
+    stages = ['beverage', 'hot_food', 'cold_food', 'cash']
+    for stage in stages:
+        for node in stats:
+            print(stage, node)
+            for model in pythonmodels:
+                #print(stat[model])
+                print(round(stat[model][stage + '     ' + node] / COUNT, 4))
+    stages = ['global']
+    stats = ['max_students', 'aver_students', 'aver_time', 'max_time']
+    for stage in stages:
+        for node in stats:
+            print(stage, node)
+            for model in pythonmodels:
+                #print(stat[model])
+                print(round(stat[model][stage + '     ' + node] / COUNT, 4))
+    ''' 
     for model in stat:
         #print(stat[model])
         for node in stat[model]:
             print(model, node, stat[model][node])
+    '''
